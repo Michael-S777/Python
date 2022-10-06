@@ -113,3 +113,17 @@ X = trainWithoutOutliers.drop("SalePrice", axis=1)
 Y = np.log1p(trainWithoutOutliers["SalePrice"]) 
 reg = LinearRegression().fit(X, Y)
 
+
+#Making prediction
+#Removing SalePrice column
+newTest = newTest.drop("SalePrice", axis=1) 
+pred = np.expm1(reg.predict(newTest))
+
+#Submitting prediction
+sub = pd.DataFrame() #Create a new DataFrame for submission
+sub['Id'] = test['Id']
+sub['SalePrice'] = pred
+sub.to_csv("submission.csv", index=False) #Convert DataFrame to .csv file
+
+#Visualizing the DataFrame sub
+sub 

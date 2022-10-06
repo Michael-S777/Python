@@ -104,3 +104,12 @@ for column in newTrain:
     trainWithoutOutliers = newTrain.drop(outlierValuesList) #Drop outlier rows
 
 trainWithoutOutliers = newTrain
+
+
+#Training the data
+#Removing SalePrice column
+X = trainWithoutOutliers.drop("SalePrice", axis=1) 
+#Getting SalePrice column {log1p(x) = log(x+1)}
+Y = np.log1p(trainWithoutOutliers["SalePrice"]) 
+reg = LinearRegression().fit(X, Y)
+
